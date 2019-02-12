@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Ad_Insights_DataAccessLayer.Transactions>
+
+@{
+    ViewBag.Title = "SalesDetails";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<link href="~/Content/Admin.css" rel="stylesheet" />
+<h2>Sales Details</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddSales")
+</p>
+@if (ViewBag.List != null)
+{
+<table class="table table-hover table-striped">
+    <tr>
+        <th style="padding-left:4%">
+            @Html.DisplayNameFor(model => model.ProductDetail.ProductName)
+        </th>
+        <th style="padding-left:4%">
+            @Html.DisplayNameFor(model => model.ProductDetail.ProductPrice)
+        </th>
+        <th style="padding-left:3%">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th style="padding-left:4%">
+            @Html.Label("Total Price")
+        </th>
+        <th style="padding-left:7%">
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td colspan="6">
+            @if (ViewBag.Message != null)
+            {
+                <h2><span style="color:red; text-align:center;">@ViewBag.Message</span></h2>
+            }
+        </td>
+    </tr>
+
+@foreach (var item in ViewBag.List)
+{
+    <tr>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.ProductName</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.Price</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.Quantity</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.TotalPrice</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.Transaction</li>
+            </ul>
+        </td>
+        <td>
+            @{var transactionId = item.TransactionID;}
+            @Html.ActionLink("Edit", "EditSales", "User", new { transId = item.TransactionID },null)
+
+            @Html.ActionLink("Delete", "DeleteSales", "User", new { id = item.TransactionID },null)
+
+        </td>
+    </tr>
+}
+
+</table>
+}

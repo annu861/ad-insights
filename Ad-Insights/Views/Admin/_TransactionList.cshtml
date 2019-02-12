@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Ad_Insights_DataAccessLayer.Transactions>
+@if (ViewBag.List != null)
+{
+<table class="table-striped">
+    <tr>
+        <th style="padding-left:4%;">
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </th>
+        <th style="padding-left:3%;">
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </th>
+        <th style="padding-left:4%;">
+            @Html.DisplayNameFor(model => model.ProductDetail.ProductName)
+        </th>
+        <th style="padding-left:2%;">
+            @Html.DisplayNameFor(model => model.ProductDetail.ProductPrice)
+        </th>
+        <th style="padding-left:3%;">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th style="padding-left:4%">
+            @Html.Label("Total Price")
+        </th>
+        <th style="padding-left:6%;">
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+
+    </tr>
+    <tr>
+        <td colspan="7">
+            @if (ViewBag.Error != null)
+            {
+                <h2><span style="color:red; text-align:center;">@ViewBag.Error</span></h2>
+            }
+        </td>
+    </tr>
+
+    @foreach (var item in ViewBag.List)
+    {
+    <tr>
+
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.FirstName</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.LastName</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.ProductName</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.Price</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.Quantity</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.TotalPrice</li>
+            </ul>
+        </td>
+        <td>
+            <ul style="list-style-type:none">
+                <li>@item.Transaction</li>
+            </ul>
+        </td>
+
+
+    </tr>
+    }
+
+</table>
+}
+

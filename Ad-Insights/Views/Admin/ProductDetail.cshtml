@@ -1,0 +1,77 @@
+﻿@model Ad_Insights_DataAccessLayer.ProductDetail
+
+@{
+    ViewBag.Title = "ProductDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/Admin.css" rel="stylesheet" type="text/css" />
+<h2>Product Detail</h2>
+<script>
+    function clickAlert() {
+        //debugger;
+        alert("Product detail successfully added");
+        window.location.href = '@Url.Action("ProductDetail","Admin")';
+        @*if (confirm("Do You want to Cancel?")) {
+            window.location.href = '@Url.Action("Login","Login")';
+            return false;
+        }
+        else {
+             window.location.href = '@Url.Action("Register","Login")';
+        }*@
+    }
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model=>model.CategoryID, new SelectList(ViewBag.Category as System.Collections.IEnumerable, "CategoryID", "CategoryName"),"Choose Category",
+               htmlAttributes: new { @class = "form-control" , @id = "GetProductCategory" })
+                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductPrice, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Add" onclick="clickAlert()" class="btn btn-success" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @{ if (ViewBag.Message != null)
+                    {
+                        <span style="color:green;">@ViewBag.Message</span>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+

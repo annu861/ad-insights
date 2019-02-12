@@ -1,0 +1,79 @@
+﻿@model Ad_Insights_DataAccessLayer.Transactions
+
+@{
+    ViewBag.Title = "EditSales";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<link href="~/Content/Admin.css" rel="stylesheet" />
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.TransactionID)
+
+   
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.TextBoxFor(model => model.TransactionDate,
+           new { @type = "date", @Value = Model.TransactionDate.ToString("yyyy-MM-dd"), @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "SalesDetails")
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#GetProductCategory").change(function () {
+            var ctegoryID = $(this).val();
+            $.ajax({
+                url: "/User/GetPNameByCategory",
+                type: 'GET',
+                datatype: "json",
+                data: { categoryId: ctegoryID },
+                success: function (product) {
+                    console.log(product);
+                    $.each(product, function (index, itemData) {
+                        //                 //alert(product);
+                        //                 //alert(itemData);
+                        $('#GetProductName').append
+                            ('<option value="' + itemData.Value + '">' + itemData.Text + '</option>');
+                    });
+                },
+            });
+        });
+    });
+</script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

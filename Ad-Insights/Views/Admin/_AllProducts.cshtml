@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Ad_Insights_DataAccessLayer.ProductDetail>
+
+@if (ViewBag.ProductName != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.ProductName)
+        {
+            <tr>
+                <td>
+                    <ul style="list-style-type:none">
+                        <li>@item.ProductName</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul style="list-style-type:none">
+                        <li>@item.ProductPrice</li>
+                    </ul>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditProduct", new { transId = item.ProductID },null) |
+                    @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ProductID },null)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
